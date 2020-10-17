@@ -12,7 +12,11 @@ const App = () => {
     (clientHeight, scrollTop) => {
       dispatch({
         type: SET_VISIBLE_AREA,
-        visibleArea: { bottom: scrollTop + clientHeight, top: scrollTop },
+        visibleArea: {
+          bottom: scrollTop + clientHeight,
+          clientHeight,
+          top: scrollTop,
+        },
       });
     },
     [dispatch]
@@ -39,41 +43,31 @@ const App = () => {
       type: SET_VISIBLE_AREA,
       visibleArea: {
         bottom: wrapperDimensions.height,
+        clientHeight: wrapperDimensions.height,
         top: wrapperDimensions.y,
       },
     });
   }, [dispatch]);
 
   return (
-    <>
-      <Wrapper ref={wrapperRef}>
-        <Content>
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-          <TestComponent />
-        </Content>
-      </Wrapper>
-      <pre>{JSON.stringify({ state }, null, 2)}</pre>
-    </>
+    <Wrapper ref={wrapperRef}>
+      <Content>
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+        <TestComponent />
+      </Content>
+    </Wrapper>
   );
 };
 

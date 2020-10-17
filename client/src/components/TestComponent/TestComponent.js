@@ -1,4 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { transform } from "framer-motion";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+
+import sampleImages from "../../images/sampleImages.json";
 
 import { AppContext } from "../../AppState";
 import Wrapper from "./styled";
@@ -7,26 +10,27 @@ const TestComponent = () => {
   const {
     state: { visibleArea },
   } = useContext(AppContext);
+  const sampleImage = useMemo(
+    () => sampleImages[Math.floor(Math.random() * sampleImages.length)],
+    []
+  );
   const wrapperRef = useRef();
   const [wrapperDimensions, setWrapperDimensions] = useState(null);
-
-  useEffect(() => {
-    console.log("Visible area changed");
-  }, [visibleArea]);
 
   useEffect(() => {
     setWrapperDimensions(() => wrapperRef.current.getBoundingClientRect());
   }, []);
 
   return (
-    <Wrapper ref={wrapperRef}>
-      <div>Component Top: {wrapperDimensions?.top}</div>
-      <div>Component Bottom: {wrapperDimensions?.bottom}</div>
-      <div>
-        In view:{" "}
-        {wrapperDimensions?.top <= visibleArea?.bottom ? "true" : "false"}
-      </div>
-    </Wrapper>
+    <Wrapper
+      parentScroll={transform(
+        visibleArea?.bottom - wrapperDimensions?.top,
+        [0, visibleArea?.clientHeight + wrapperDimensions?.height],
+        [0, 1]
+      )}
+      ref={wrapperRef}
+      sampleImage={sampleImage}
+    ></Wrapper>
   );
 };
 

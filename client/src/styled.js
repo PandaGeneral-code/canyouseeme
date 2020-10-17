@@ -11,7 +11,7 @@ export const TestDiv = styled.div`
 
 const Wrapper = styled.div`
   box-sizing: border-box;
-  height: 50%;
+  height: 100%;
   overflow: hidden auto;
 `;
 
